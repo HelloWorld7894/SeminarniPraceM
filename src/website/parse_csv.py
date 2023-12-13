@@ -2,7 +2,7 @@ import csv
 import os
 import json
 
-def parse_all(to_csv, to_json):
+def parse_all(to_csv, to_json, date_range):
     path = os.getcwd()
     abs_path = os.path.join(path[:path.index("SeminarniPraceM") + len("SeminarniPraceM")], "src/tmp")
 
@@ -15,8 +15,8 @@ def parse_all(to_csv, to_json):
     for filename in os.listdir(abs_path):
         file_path = os.path.join(abs_path, filename)
         if os.path.isfile(file_path) and filename != ".gitkeep":
-
             date = start_date + i_date
+
             countries = {}
             counties = {}
             ages = {}
@@ -99,15 +99,44 @@ def parse_all(to_csv, to_json):
                 if not found_key:
                     ages[age] = 1
 
+            total_num = len(counties_data)
+
+            #validace (jestli náhodou nekompletní data)
+
+            #pro státy
+            i = 0
+            while i < len(countries):
+                key = list(countries)[i]
+                val = list(countries.values())[i]
+
+                if len(key) == 0:
+                    countries.pop(key)
+                    i -= 1
+
+                    try: 
+                        countries["nezjištěno"] += val
+                    except Exception as E:
+                        #country "nezjištěno" was not created yet
+                        countries["nezjištěno"] = val
+                i += 1
+
+            #pro města
+            try:
+                counties.pop("nezjištěno")
+            except Exception as E:
+                #county "nezjištěno" does not exist
+                pass
+
             all_dict["roky"].append({
                 "rok": date,
+                "ciz_celk_poc": total_num,
                 "ciz_poc_stat": countries,
-                "ciz_poc_kraj": counties,
+                "ciz_poc_obec": counties,
                 "ciz_vek": ages
             })
 
             i_date += 1
-
+    
     
     if to_json:
         #přidat do celkového output.json souboru
@@ -116,9 +145,32 @@ def parse_all(to_csv, to_json):
 
     if to_csv:
         #reparse back to different csv
+        fields = ["Obec"]
+        data = []
+
+        #přidání obcí do datasetu
+        for county_str in all_dict["roky"][0]["ciz_poc_obec"]:
+            data.append([county_str])
+
+        #přidání dat obcí do datasetu
         for date in all_dict["roky"]:
-            pass
+            if date_range[0] <= date["rok"] <= date_range[1]:
+                fields.append("Počet cizinců: " + str(date["rok"]))
+
+                for county in date["ciz_poc_obec"]:
+                    for data_curr in data:
+                        if data_curr[0] == county:
+                            data_curr.append(date["ciz_poc_obec"][county])
+
+        with open(os.path.join(abs_path, "output.csv"), "w") as outfile:
+            csvWriter = csv.writer(outfile)
+            csvWriter.writerow(fields)
+            csvWriter.writerows(data)
+        
+
+
+
 
 
 if __name__ == "__main__":
-    parse_all(to_csv=True, to_json=True)
+    parse_all(to_csv=True, to_json=True, date_range=[2020, 2023])
