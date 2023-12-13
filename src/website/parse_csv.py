@@ -2,7 +2,7 @@ import csv
 import os
 import json
 
-def parse_all():
+def parse_all(to_csv, to_json):
     path = os.getcwd()
     abs_path = os.path.join(path[:path.index("SeminarniPraceM") + len("SeminarniPraceM")], "src/tmp")
 
@@ -19,7 +19,7 @@ def parse_all():
             date = start_date + i_date
             countries = {}
             counties = {}
-            age = {}
+            ages = {}
 
             ages_data = []
             counties_data = []
@@ -54,11 +54,71 @@ def parse_all():
                             #incomplete data, pass
                             continue
 
+            #read all the arrays
+
+            #přečtení všech krajů
+            for county in counties_data:
+                county = county.lower()
+
+                #validace setů
+                found_key = False
+                for key in counties:
+                    if county == key:
+                        counties[county] += 1
+                        found_key = True
+                        break
+                    
+                if not found_key:
+                    counties[county] = 1
+
+            #přečtení všech států ze kterých cizinci pocházejí
+            for country in countries_data:
+                country = country.lower()
+
+                #validace setů
+                found_key = False
+                for key in countries:
+                    if country == key:
+                        countries[country] += 1
+                        found_key = True
+                        break
+                    
+                if not found_key:
+                    countries[country] = 1
+
+            #přečtení všech věků cizinců
+            for age in ages_data:
+                #validace setů
+                found_key = False
+                for key in ages:
+                    if age == key:
+                        ages[age] += 1
+                        found_key = True
+                        break
+                    
+                if not found_key:
+                    ages[age] = 1
+
+            all_dict["roky"].append({
+                "rok": date,
+                "ciz_poc_stat": countries,
+                "ciz_poc_kraj": counties,
+                "ciz_vek": ages
+            })
+
             i_date += 1
 
-            #read all the arrays
-            #TODO
+    
+    if to_json:
+        #přidat do celkového output.json souboru
+        with open(os.path.join(abs_path, "output.json"), "w") as outfile: 
+            json.dump(all_dict, outfile, indent=4, ensure_ascii=False)
+
+    if to_csv:
+        #reparse back to different csv
+        for date in all_dict["roky"]:
+            pass
 
 
 if __name__ == "__main__":
-    parse_all()
+    parse_all(to_csv=True, to_json=True)
