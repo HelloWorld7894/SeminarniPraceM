@@ -49,3 +49,7 @@ V tomhle repozitáři se nachází veškerý kód a zdroje k seminární práci 
 
 ČSÚ ke každé datové sadě přikládá i dokumentaci, rozhodl jsem se jen jako příklad stáhnout dokumentaci k souboru z roku 2004
 [Odkaz k dokumentaci](https://www.czso.cz/documents/62353418/171347803/290038-22dds.htm)
+
+## Jiné odkazy:
+
+[odkaz na samotný `.xlsx` soubor se statistikou](https://github.com/HelloWorld7894/SeminarniPraceM/blob/main/doc/statistika.xlsx)
