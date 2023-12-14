@@ -48,5 +48,4 @@ V tomhle repozitáři se nachází veškerý kód a zdroje k seminární práci 
 ## Dokumentace datových sad:
 
 ČSÚ ke každé datové sadě přikládá i dokumentaci, rozhodl jsem se jen jako příklad stáhnout dokumentaci k souboru z roku 2004
-
-<iframe src="https://github.com/HelloWorld7894/SeminarniPraceM/tree/main/doc/sample_dokumentace.htm" height="500" width="500"></iframe>
+[Odkaz k dokumentaci ](https://github.com/HelloWorld7894/SeminarniPraceM/tree/main/doc/sample_dokumentace.htm)
