@@ -42,7 +42,7 @@ V tomhle repozitáři se nachází veškerý kód a zdroje k seminární práci 
 
 * **Cizinci podle státního občanství, věku a pohlaví - rok 2022:** [https://data.gov.cz/dataset2022](https://data.gov.cz/datov%C3%A1-sada?iri=https%3A%2F%2Fdata.gov.cz%2Fzdroj%2Fdatov%C3%A9-sady%2F00025593%2F09eb5b01250403964cff080936b9d24b)
 
-**POZNÁMKA:** Pro moji statistiku jsem nestihl využít všech hodnot (od roku 2004 - 2022) a pracoval jsem pouze s hodnotami od roku 2019 do roku 2022
+**POZNÁMKA:** Pro moji statistiku jsem nestihl využít všech hodnot (od roku 2004 - 2022) a pracoval jsem pouze s hodnotami od roku 2011 do roku 2014
 
 
 ## Dokumentace datových sad:
