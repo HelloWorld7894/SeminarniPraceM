@@ -12,9 +12,12 @@ def parse_all(to_csv, to_json, date_range):
     }
     start_date = 2004
     i_date = 0
+
     for filename in os.listdir(abs_path):
+        total_num = 0
         file_path = os.path.join(abs_path, filename)
-        if os.path.isfile(file_path) and filename != ".gitkeep":
+
+        if os.path.isfile(file_path) and not (filename == ".gitkeep" or filename == "output.csv" or filename == "output.json" or "lock" in filename):
             date = start_date + i_date
 
             countries = {}
@@ -28,6 +31,7 @@ def parse_all(to_csv, to_json, date_range):
             with open(file_path, newline="") as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=",")
                 for i, row in enumerate(csv_reader):
+
                     if i > 0:
                         try:
                             if len(row[18]) > 0:
@@ -99,8 +103,6 @@ def parse_all(to_csv, to_json, date_range):
                 if not found_key:
                     ages[age] = 1
 
-            total_num = len(counties_data)
-
             #validace (jestli náhodou nekompletní data)
 
             #pro státy
@@ -148,6 +150,8 @@ def parse_all(to_csv, to_json, date_range):
         fields = ["Obec"]
         data = []
 
+        print(all_dict["roky"])
+
         #přidání obcí do datasetu
         for county_str in all_dict["roky"][0]["ciz_poc_obec"]:
             data.append([county_str])
@@ -166,11 +170,6 @@ def parse_all(to_csv, to_json, date_range):
             csvWriter = csv.writer(outfile)
             csvWriter.writerow(fields)
             csvWriter.writerows(data)
-        
-
-
-
-
 
 if __name__ == "__main__":
     parse_all(to_csv=True, to_json=True, date_range=[2020, 2023])
