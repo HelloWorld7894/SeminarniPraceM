@@ -48,4 +48,4 @@ V tomhle repozitáři se nachází veškerý kód a zdroje k seminární práci 
 ## Dokumentace datových sad:
 
 ČSÚ ke každé datové sadě přikládá i dokumentaci, rozhodl jsem se jen jako příklad stáhnout dokumentaci k souboru z roku 2004
-[Odkaz k dokumentaci ](https://danpojhan.eu/SeminarniPraceM/doc/doc_sample.htm)
+[Odkaz k dokumentaci](https://www.czso.cz/documents/62353418/171347803/290038-22dds.htm)
