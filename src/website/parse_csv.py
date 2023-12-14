@@ -3,6 +3,9 @@ import os
 import json
 
 def parse_all(to_csv, to_json, date_range):
+    if type(date_range) == int:
+        date_range = [date_range, date_range]
+
     path = os.getcwd()
     abs_path = os.path.join(path[:path.index("SeminarniPraceM") + len("SeminarniPraceM")], "src/tmp")
 
@@ -150,8 +153,6 @@ def parse_all(to_csv, to_json, date_range):
         fields = ["Obec"]
         data = []
 
-        print(all_dict["roky"])
-
         #přidání obcí do datasetu
         for county_str in all_dict["roky"][0]["ciz_poc_obec"]:
             data.append([county_str])
@@ -172,4 +173,4 @@ def parse_all(to_csv, to_json, date_range):
             csvWriter.writerows(data)
 
 if __name__ == "__main__":
-    parse_all(to_csv=True, to_json=True, date_range=[2020, 2023])
+    parse_all(to_csv=True, to_json=True, date_range=[2011, 2014])
